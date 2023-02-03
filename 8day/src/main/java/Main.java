@@ -103,7 +103,7 @@ public class Main {
             + "110302001002203213045154432555553533654213115630566633251401333456110344545402251530041323224011221";
 
     int[][] tab = dummy.parseContent(content);
-    int result = dummy.apply_rule(tab);
+    int result = dummy.apply_rule2(tab);
 
     System.out.println(result);
   }

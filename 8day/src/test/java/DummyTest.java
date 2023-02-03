@@ -41,4 +41,19 @@ public class DummyTest {
     assertEquals(result, 21);
 
   }
+  @Test
+  public void apply_rule2Test(){
+    Dummy dummy = new Dummy();
+    String content = "30373\n"
+            + "25512\n"
+            + "65332\n"
+            + "33549\n"
+            + "35390";
+    int[][] tab = dummy.parseContent(content);
+
+    int result = dummy.apply_rule2(tab);
+
+    assertEquals(result, 8);
+
+  }
 }
