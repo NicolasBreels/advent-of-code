@@ -7,6 +7,8 @@ public class Dummy {
     private int countCycle = 0;
     private int count = 0;
 
+    private String crt = "";
+
     public int add(int x) {
         init += x;
         return init;
@@ -49,5 +51,31 @@ public class Dummy {
         }
         System.out.println(count);
         return count;
+    }
+
+    public void incrementAndComputeActuelCRT() {
+        incrementCycle();
+        if(countCycle == init || countCycle == init-1 || countCycle == init+1 ){
+            crt = crt + "#";
+        }
+        else{
+            crt = crt + ".";
+        }
+        System.out.println(countCycle + " " + init +" " +crt);
+//        System.out.println(countCycle);
+    }
+
+    public void compute2(String entrance) {
+        List<String> docs = Arrays.asList(entrance.split("\n"));
+        for (String doc : docs) {
+            List<String> lines = Arrays.asList(doc.split(" "));
+            if (lines.get(0).equals("addx")) {
+                incrementAndComputeActuelCRT();
+                incrementAndComputeActuelCRT();
+                add(Integer.parseInt(lines.get(1)));
+            } else {
+                incrementAndComputeActuelCRT();
+            }
+        }
     }
 }
