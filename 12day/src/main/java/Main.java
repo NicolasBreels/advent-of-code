@@ -13,7 +13,14 @@ public class Main {
   private static final char DEPART = 'S';
   private static final char ARRIVEE = 'E';
 
-  private static String grid = "abcccccccccccccccccccccccccccccccccccccaaaaaaacccccccaaaaaaaaaaaccccccccccccccccccccaaacaaaaaaaacccccccccccccccccccccccccccccccccccaaaaa\n"
+  private static String grid_1 =  "Sabqponm\n"
+          + "abcryxxl\n"
+          + "accszExk\n"
+          + "acctuvwj\n"
+          + "abdefghi";
+
+  private static String grid_2 =
+          "abcccccccccccccccccccccccccccccccccccccaaaaaaacccccccaaaaaaaaaaaccccccccccccccccccccaaacaaaaaaaacccccccccccccccccccccccccccccccccccaaaaa\n"
           + "abccccccccccccccccccaaccaacccccccccccccaaaaaaaccccccccaaaaaaaaaaacccccccaaaaccccccccaaaaaaaaaaaaacccccccccccccccccccccccccccccccccaaaaaa\n"
           + "abccccccccccccccccccaaaaaaccccccccccaaaccaaaaaacccccccaaaaaaaaaaccccccccaaaaccccccaaaaaaaaaaaaaaacccccccccccccccccccaaacccccccccccaaaaaa\n"
           + "abcccccccccccccccccccaaaaacccccccccccaaccaacaaaccccccaaaaaaaaaaaccccccccaaaacccccaaaaaaaaacaaaaaaacccccccccccccccccaaaacccccccccccaaacaa\n"
@@ -56,10 +63,11 @@ public class Main {
           + "abcccccaaaaaacccccccaaaaaaaacccccccccccccccccccccccaaaaaaaaaaaaaaaacccccccccccccccccccccaaaaaacccaaaaaaaccccccccccccccccccccccccccaaaaaa";
 
 
-  public static void main(String[] args) {
-    char[][] grille = new char[41][136];
 
-    List<String> line = Arrays.asList(grid.split("\n"));
+  public static void main(String[] args) {
+//    char[][] grille = new char[5][8];
+    char[][] grille = new char[41][136];
+    List<String> line = Arrays.asList(grid_2.split("\n"));
     int j = 0;
     for(String s : line){
       List<String> column = Arrays.asList(s.split(""));
@@ -71,18 +79,29 @@ public class Main {
       j++;
     }
 
+    int min = INFINI;
 
-    int distance = algo(grille, DEPART, ARRIVEE);
-    distance=distance+1;
-    System.out.println("La distance minimale entre " + DEPART + " et " + ARRIVEE + " est : " + distance);
+    for (int ij=0; ij<grille.length; ij++) {
+        for (int ji=0;ji<grille[0].length;ji++){
+          if(grille[ij][ji]=='a'){
+            int distance = algo(grille, ij,ji , ARRIVEE);
+            if(distance<min){
+              min=distance;
+            }
+          }
+        }
+    }
+    min=min+1;
+    System.out.println("La distance minimale entre " + DEPART + " et " + ARRIVEE + " est : " + min);
   }
 
-  private static int algo(char[][] grille, char depart, char arrivee) {
+  private static int algo(char[][] grille, int x, int y, char arrivee) {
 
     Queue<Coord> queue = new LinkedList<>();
     Set<Coord> visited = new HashSet<>();
-    queue.add(new Coord(20,0,0));
-    visited.add(new Coord(20,0,0));
+
+    queue.add(new Coord(x,y,0));
+    visited.add(new Coord(x,y,0));
 
     while(queue.size()>0){
       Coord current = queue.remove();
@@ -97,6 +116,6 @@ public class Main {
         }
       }
     }
-    return -1;
+    return INFINI;
   }
 }
